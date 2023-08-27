@@ -123,9 +123,11 @@ const ForestPlot = ({width=500, height=300}) => {
         const leftGeometricMiddle = Math.sqrt((xmini + 0.9*(1-xmini)) * (xmini + 0.1*xmini));
         leftMiddle = xScale(leftGeometricMiddle);
         
-        rightStart = xScale(0.1*xmaxi);
-        rightEnd   = xScale(0.9*xmaxi);
-        const rightGeometricMiddle = Math.sqrt(0.1*xmaxi * 0.9*xmaxi);
+        //rightStart = xScale(0.1*xmaxi);
+        rightStart = xScale(Math.pow(xmaxi, 0.10));
+        //rightEnd   = xScale(0.9*xmaxi);
+        rightEnd = xScale(Math.pow(xmaxi, 0.90))
+        const rightGeometricMiddle = Math.sqrt(xmaxi);
         rightMiddle = xScale(rightGeometricMiddle);
       } else {
         leftStart = xScale(0.1*xmini);
