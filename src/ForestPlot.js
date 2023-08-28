@@ -1,4 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
+import Table from 'react-bootstrap/Table';
+import Button from 'react-bootstrap/Button';
 import * as d3 from 'd3';
 
 const ForestPlot = ({width=500, height=300}) => {
@@ -276,14 +278,20 @@ const ForestPlot = ({width=500, height=300}) => {
             />
             <button onClick={handleAddData}>Add Data</button>
         </div>
-        <div className="data-list">
+        <Table stripped bordered hover size="sm">
+          <tbody>
             {data.map((d, index) => (
-                <div key={index} className="data-item">
-                    <span>{d.label}: {d.value} ({d.lci}, {d.uci})</span>
-                    <button onClick={() => handleRemoveData(index)}>Remove</button>
-                </div>
+                <tr key={index}>
+                  <td>{d.label}</td>
+                  <td>{d.value}</td>
+                  <td>[{d.lci}, {d.uci}]</td>
+                  <td>
+                    <Button variant="danger" onClick={() => handleRemoveData(index)}>Remove</Button>
+                  </td>
+                </tr>
             ))}
-        </div>
+          </tbody>
+        </Table>
         <svg id="forest" ref={ref}></svg>
     </div>
 );
