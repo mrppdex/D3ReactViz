@@ -107,3 +107,9 @@
 td {
   vertical-align: middle;
 }
+
+Button.arrow {
+  font-size: x-large;
+  padding: 3px;
+  margin-left: 3px;
+}

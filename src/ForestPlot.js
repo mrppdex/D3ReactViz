@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
+import CloseButton from 'react-bootstrap/CloseButton';
 import * as d3 from 'd3';
 
 const ForestPlot = ({width=500, height=300}) => {
@@ -21,6 +22,16 @@ const ForestPlot = ({width=500, height=300}) => {
 
   const swapGoodBad = () => {
     setGbflag(!gbflag);
+  }
+
+  const moveElement = (index, direction) => {
+    const prevData = [...data];
+    if (direction === "up" && index > 0) {
+      [prevData[index - 1], prevData[index]] = [prevData[index], prevData[index - 1]];
+    } else if (direction === "down" && index < data.length - 1) {
+      [prevData[index], prevData[index + 1]] = [prevData[index + 1], prevData[index]];
+    }
+    setData(prevData);
   }
 
 /*   const updateXaxis = () => {
@@ -55,6 +66,7 @@ const ForestPlot = ({width=500, height=300}) => {
   };
 
   useEffect(() => {
+    console.log('refreshing...');
 
     const margin = { top: 20, right: 20, bottom: 30, left: 50 };
 
@@ -83,7 +95,7 @@ const ForestPlot = ({width=500, height=300}) => {
     setXmin(xmini || xmini===0 ? xmini : d3.min(data, d => d.lci));
     setXmax(xmaxi || xmaxi===0 ? xmaxi : d3.max(data, d => d.uci));
 
-    console.log('xmini='+xmini+'; xmaxi='+xmaxi);
+    //console.log('xmini='+xmini+'; xmaxi='+xmaxi);
 
     let xScale;
     if (logflag) {
@@ -286,7 +298,9 @@ const ForestPlot = ({width=500, height=300}) => {
                   <td>{d.value}</td>
                   <td>[{d.lci}, {d.uci}]</td>
                   <td>
-                    <Button variant="danger" onClick={() => handleRemoveData(index)}>Remove</Button>
+                    <Button variant="danger"><CloseButton variant="white" onClick={() => handleRemoveData(index)}></CloseButton></Button>
+                    {index > 0 && <Button onClick={() => moveElement(index, "up")} className="arrow">⬆</Button>}
+                    {index < data.length - 1 && <Button onClick={() => moveElement(index, "down")} className="arrow" >⬇</Button>}
                   </td>
                 </tr>
             ))}
