@@ -298,7 +298,7 @@ const ForestPlot = ({width=500, height=300}) => {
                   <td>{d.value}</td>
                   <td>[{d.lci}, {d.uci}]</td>
                   <td>
-                    <Button variant="danger"><CloseButton variant="white" onClick={() => handleRemoveData(index)}></CloseButton></Button>
+                    <Button variant="danger"><CloseButton variant="white" onClick={() => handleRemoveData(data.length - index-1)}></CloseButton></Button>
                     {index > 0 && <Button onClick={() => moveElement(data.length - index-1, "down")} className="arrow">⬆</Button>}
                     {index < data.length - 1 && <Button onClick={() => moveElement(data.length - index -1, "up")} className="arrow" >⬇</Button>}
                   </td>
