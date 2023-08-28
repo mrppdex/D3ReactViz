@@ -292,15 +292,15 @@ const ForestPlot = ({width=500, height=300}) => {
         </div>
         <Table stripped bordered hover size="sm">
           <tbody>
-            {data.map((d, index) => (
+            {[...data].reverse().map((d, index) => (
                 <tr key={index}>
                   <td>{d.label}</td>
                   <td>{d.value}</td>
                   <td>[{d.lci}, {d.uci}]</td>
                   <td>
                     <Button variant="danger"><CloseButton variant="white" onClick={() => handleRemoveData(index)}></CloseButton></Button>
-                    {index > 0 && <Button onClick={() => moveElement(index, "up")} className="arrow">⬆</Button>}
-                    {index < data.length - 1 && <Button onClick={() => moveElement(index, "down")} className="arrow" >⬇</Button>}
+                    {index > 0 && <Button onClick={() => moveElement(data.length - index-1, "down")} className="arrow">⬆</Button>}
+                    {index < data.length - 1 && <Button onClick={() => moveElement(data.length - index -1, "up")} className="arrow" >⬇</Button>}
                   </td>
                 </tr>
             ))}
